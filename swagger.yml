@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Car Catalog
+  description: Information about Cars
+  version: 1.0.0
+servers:
+  - url: /api
+
+paths:
+  /cars:
+    get:
+      summary: Get all information about Cars
+      operationId: api.read_all
+      responses:
+        "200":
+          description: Successfully retrieved information about Cars
+    post:
+      summary: Create a new car
+      operationId: api.create_car
+      requestBody:
+        description: Create a new car
+        content:
+          application/json:
+            schema:
+              x-body-name: car
+              $ref: "#/components/schemas/Car"
+      responses:
+        "201":
+          description: Car successfully created
+        "409":
+          description: Car with provided name already exists
+        "default":
+          description: All non standard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cars/{name}:
+    get:
+      summary: Read one car
+      operationId: api.read_one_car
+      parameters:
+        - $ref: "#/components/parameters/name"
+      responses:
+        "200":
+          description: Successfully read one car
+        "default":
+          description: All non standard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete one car
+      operationId: api.delete_car
+      parameters:
+        - $ref: "#/components/parameters/name"
+      responses:
+        "200":
+          description: Successfully deleted car
+        "404":
+          description: Car does not exist
+        "default":
+          description: All non standard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      summary: Update one car
+      operationId: api.update_car
+      parameters:
+        - $ref: "#/components/parameters/name"
+      requestBody:
+        description: Update one car
+        content:
+          application/json:
+            schema:
+              x-body-name: car
+              $ref: "#/components/schemas/Car"
+      responses:
+        "200":
+          description: Successfully updated car information
+        "default":
+          description: All non standard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Car:
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        ami:
+          type: string
+        region:
+          type: string
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+  parameters:
+    name:
+      name: name
+      description: Car name
+      in: path
+      required: true
+      schema:
+        type: string
