@@ -1,3 +1,3 @@
-key_name        =
-public_key_path =
-private_key_path =
+key_name = "julias_key"
+public_key_path = "/home/sgtuser/julijaskey.pub"
+private_key_path = "/home/sgtuser/julijaskey"
