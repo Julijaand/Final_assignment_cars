@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: sgt2023
       MYSQL_DATABASE: car_db
-      MYSQL_USER: julija
+      MYSQL_USER: julija.andrusenko
       MYSQL_PASSWORD: sgt2023
     volumes:
       - mysql-data:/var/lib/mysql
