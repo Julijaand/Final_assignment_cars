@@ -3,9 +3,12 @@
     name: '*'
     state: latest
 
-- name: "install docker"
-  apt:
-    name: docker
-    state: present
-    update_cache: yes
-#    become: true
+- name: "AWS - Install docker"
+  hosts: aws-docker-vms
+  become: yes
+  tasks:
+    - name: Update all packages
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes
