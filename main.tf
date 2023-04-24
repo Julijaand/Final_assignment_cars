@@ -7,7 +7,7 @@ resource "aws_key_pair" "mykeypair_test" {
   public_key = file(var.public_key_path)
 }
 
-resource "aws_security_group" "final_assignment_team_four_security_group" {
+resource "aws_security_group" "final_assignment_security_group" {
   name        = var.security_group_name
 
   ingress {
@@ -16,13 +16,13 @@ resource "aws_security_group" "final_assignment_team_four_security_group" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+/*
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+  }*/
 
   egress {
     from_port   = 0
@@ -32,40 +32,17 @@ resource "aws_security_group" "final_assignment_team_four_security_group" {
   }
 }
 
-resource "aws_instance" "final_assignment_team_four" {
+resource "aws_instance" "final_assignment" {
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = aws_key_pair.mykeypair_test.key_name
   tags = {
-    Name = "final_assignment_team_four"
+    Name = "final_assignment"
   }
-  vpc_security_group_ids = [aws_security_group.final_assignment_team_four_security_group.id]
-    provisioner "local-exec" {
-      command = "sleep 80 && ansible-playbook -i '${aws_instance.final_assignment_team_four.public_ip},' -e ip_address=${aws_instance.final_assignment_team_four.public_ip} create_folder.yml --user ${var.aws_instance_user_id} --private-key ${var.private_key_path}"
-    }
+  vpc_security_group_ids = [aws_security_group.final_assignment_security_group.id]
 
-  # provisioner "local-exec" {
-  # command = "sleep 80 && ansible-playbook -i ${var.inventory_filename} create_folder.yml"
-  #}
+  provisioner "local-exec" {
+    command = "sleep 60 && ansible-playbook -i '${aws_instance.final_assignment.public_ip},' -e ip_address=${aws_instance.final_assignment.public_ip} final_playbook.yml --user ${var.aws_instance_user_id} --private-key ${var.private_key_path} --vault-password-file vault_password.txt"
+  }
+
 }
-
-#resource "null_resource" "ansible_provisioner" {
-#  depends_on = [aws_instance.final_assignment_team_four]
-#
-#  provisioner "local-exec" {
-#    command = "ansible-playbook -i ${var.inventory_filename} create_folder.yml"
-#  }
-#
-#  triggers = {
-#    instance_id = aws_instance.final_assignment_team_four.id
-#  }
-#}
-#
-#resource "local_file" "inventory" {
-#  content = templatefile("inventory.tpl", {
-#    target_host      = aws_instance.final_assignment_team_four.public_ip
-#    user             = var.aws_instance_user_id
-#    private_key_file = var.private_key_path
-#  })
-#  filename = var.inventory_filename
-#}
