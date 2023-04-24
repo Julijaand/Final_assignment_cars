@@ -1,76 +1,11 @@
 ---
-  - hosts: all
-    become: true
-    roles:
-      - user:
-          name: team_four_user
-          comment: Team four
-          state: present
-          password
-          create_home: yes
-          home: /
-
-#CREATING NEW USER
-    tasks:
-      - name: Create team_four user
-        user_name: team_four_user
-        comment: "Team four"
-        state: present
-        #password: yes
-        #create_home: yes
-        #home: "/home/"
-        #ssh_key_file: .sha/id_rsa
-        #ssh_key_type: rsa
-
-#RUNNING UPDATES
-      - name: Install aptitude
-        apt:
-          name: aptitude
-          state: latest
-          update_cache: true
-
-      - name: Run apt updates
-        apt:
-          name: "*"
-          state: latest
-
-      - name: Install required packages #Do we need to install the packages here? Or on Dockerfile?
-        apt:
-
-#INSTALLING DOCKER
-      - name: Add Docker GPG apt Key
-        apt_key:
-          url: https://download.docker.com/linux/ubuntu/gpg
-          state: present
-
-      - name: Add Docker Repository
-        apt_repository:
-          repo: deb https://download.docker.com/linux/ubuntu focal stable
-          state: present
-
-      - name: Update apt and install docker-ce
-        apt:
-          name: docker-ce
-          state: latest
-          update_cache: true
-
-      - name: Install Docker Module for Python
-        pip:
-          name: docker
-
-#DOWNLOADING CONTENT FROM GITHUB
-
-      - name: Create new folder to clone repository
-        file:
-          path: /home/team_four_cloned_repository/
-          state: directory
-          mode: 700
-
-      - name: Clone a GitHub repository
-        git:
-          repo: https://github.com/Julijaand/Final_assignment_cars.git
-          dest: /home/
-          clone: yes
-          update: yes
-          # DO WE NEED TO ADD SHH KEY?
-
+- hosts: all
+  become: true
+  roles:
+    - install
+    - user
+    - prepare_git
+    - git
+    - application
+    - db
+    - delete
