@@ -1,0 +1,28 @@
+---
+- name: Copy private key to remote system
+  ansible.builtin.copy:
+    src: "{{ ssh_private_key_path }}"
+    dest: /home/{{ user_name }}/.ssh/{{ ssh_private_key_name }}
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0600'
+
+- name: Set authorized key taken from file
+  ansible.builtin.authorized_key:
+    user: "{{ user_name }}"
+    state: present
+    key: "{{ lookup('file', ssh_key_path) }}"
+
+- name: Copy Python private key to remote system
+  ansible.builtin.copy:
+    src: "{{ python_ssh_private_key_path }}"
+    dest: /home/{{ user_name }}/.ssh/{{ python_private_key_name }}
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: '0600'
+
+- name: Set Python authorized key taken from file
+  ansible.builtin.authorized_key:
+    user: "{{ user_name }}"
+    state: present
+    key: "{{ lookup('file', python_public_key) }}"

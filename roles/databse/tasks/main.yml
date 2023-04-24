@@ -1,0 +1,16 @@
+---
+- name: Wait for MySQL container to become ready
+  wait_for:
+    host: "localhost"
+    port: 3308
+    delay: 20
+    timeout: 120
+
+
+- name: Copy backup.sql from host to MySQL container
+  command: docker cp "{{ backup_file_path }}" "{{ mysql_container_name }}:{{ mysql_container_temp_path }}"
+
+- name: Import backup.sql into MySQL container
+  shell: docker exec -i "{{ mysql_container_name }}" bash -c 'cat {{ mysql_container_temp_path }} | mysql -u root -p{{ mysql_root_password }} {{ mysql_db_name }}'
+  args:
+    executable: /bin/bash

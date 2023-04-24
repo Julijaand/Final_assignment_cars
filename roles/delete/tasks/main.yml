@@ -1,0 +1,6 @@
+---
+- name: Delete a folder
+  ansible.builtin.file:
+    path: "{{ base_directory }}"
+    state: absent
+  become: true
