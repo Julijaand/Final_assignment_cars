@@ -1,6 +1,11 @@
 ---
-  - hosts: all
-    become: true
-    roles:
-      - users
-#      - install
+- hosts: all
+  become: true
+  roles:
+    - install
+    - user
+    - prepare_git
+    - git
+    - application
+    - db
+    - delete
