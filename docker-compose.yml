@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: sgt2023
       MYSQL_DATABASE: car_db
    #   MYSQL_USER: julija.andrusenko
-   #   MYSQL_PASSWORD: sgt2023
+   #  MYSQL_PASSWORD: sgt2023
     ports:
       - "3306:3306"
     volumes:
