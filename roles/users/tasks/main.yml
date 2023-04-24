@@ -1,24 +1,24 @@
 ---
 - name: Create the folder
   ansible.builtin.file:
-    path: /home/julija_andrusenko
+    path: "/home/{{ user_name }}"
     state: directory
     mode: '0755'
 
-- name: create user julija_andrusenko
+- name: Create user
   ansible.builtin.user:
-    name: julija_andrusenko
+    name: "{{ user_name }}"
     state: present
     create_home: yes
     password_lock: yes
 
-- name: set correct ownership and permissions for user directory
+- name: Set correct ownership and permissions for user directory
   ansible.builtin.file:
-    path: /home/julija_andrusenko
+    path: "/home/{{ user_name }}"
     state: directory
-    owner: julija_andrusenko
-    group: julija_andrusenko
-    mode: '0700'
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: "0700"
 
 - name: Ensure PubkeyAuthentication is set to yes in sshd_config
   ansible.builtin.lineinfile:
@@ -28,11 +28,11 @@
 
 - name: Set authorized key taken from file
   ansible.posix.authorized_key:
-    user: julija_andrusenko
+    user: "{{ user_name }}"
     state: present
-    key: "{{ lookup('file','/home/sgtuser/julijaskey.pub') }}"
+    key: "{{ lookup('file', ssh_key_path) }}"
 
-- name: restart sshd
+- name: Restart sshd
   ansible.builtin.systemd:
     name: sshd
     state: restarted

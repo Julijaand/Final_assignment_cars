@@ -1,0 +1,17 @@
+---
+- name: Clone repositories using SSH
+  ansible.builtin.git:
+    repo: "{{ item.git_repo_url }}"
+    dest: "{{ item.git_clone_destination }}"
+    version: "{{ item.branch_name }}"
+  environment:
+    GIT_SSH_COMMAND: "ssh -i /home/{{ user_name }}/.ssh/{{ item.ssh_private_key_name }} -o IdentitiesOnly=yes -F /dev/null -o StrictHostKeyChecking=no"
+  loop:
+    - git_repo_url: "{{ git_repo_url }}"
+      git_clone_destination: "{{ git_clone_destination }}"
+      branch_name: "{{ branch_name }}"
+      ssh_private_key_name: "{{ ssh_private_key_name }}"
+    - git_repo_url: "{{ git_repo_python_url }}"
+      git_clone_destination: "{{ python_app }}"
+      branch_name: main
+      ssh_private_key_name: "{{ python_private_key_name }}"
