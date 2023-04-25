@@ -5,7 +5,7 @@
 #    - install
 #    - user
 #    - prepare_git
-    - git
-    - application
+#    - git
+#    - application
     - db
     - delete
