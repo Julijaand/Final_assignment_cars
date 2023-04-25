@@ -2,7 +2,7 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_key_pair" "mykeypair_test" {
+resource "aws_key_pair" "julias_key" {
   key_name   = var.key_name
   public_key = file(var.public_key_path)
 }
