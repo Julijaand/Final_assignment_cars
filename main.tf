@@ -42,7 +42,7 @@ resource "aws_security_group" "final_assignment_group_four_security_group" {
 resource "aws_instance" "final_assignment_group_four" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  key_name      = aws_key_pair.mykeypair_test.key_name
+  key_name      = aws_key_pair.julias_key.key_name
   tags = {
     Name = "final_assignment_group_four"
   }
