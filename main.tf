@@ -44,7 +44,7 @@ resource "aws_instance" "final_assignment_group_four" {
   instance_type = var.instance_type
   key_name      = aws_key_pair.mykeypair_test.key_name
   tags = {
-    Name = "final_assignment"
+    Name = "final_assignment_group_four"
   }
   vpc_security_group_ids = [aws_security_group.final_assignment_group_four_security_group.id]
 
