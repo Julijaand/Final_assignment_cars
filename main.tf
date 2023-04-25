@@ -50,7 +50,7 @@ resource "aws_instance" "final_assignment_group_four" {
   vpc_security_group_ids = [aws_security_group.final_assignment_group_four_security_group.id]
 
   provisioner "local-exec" {
-    command = "sleep 60 && ansible-playbook -i '${aws_instance.final_assignment_group_four.public_ip},' -e ip_address=${aws_instance.final_assignment_group_four.public_ip} playbook.yml --user ${var.aws_instance_user_id} --private-key ${var.private_key_path} --vault-password-file passwords.txt"
+    command = "sleep 30 && ansible-playbook -i '${aws_instance.final_assignment_group_four.public_ip},' -e ip_address=${aws_instance.final_assignment_group_four.public_ip} playbook.yml --user ${var.aws_instance_user_id} --private-key ${var.private_key_path} --vault-password-file password.txt"
   }
 
 }

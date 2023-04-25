@@ -1,7 +1,7 @@
 ---
 user_name: julija_andrusenko
 ssh_key_path: /home/sgtuser/juliaskey.pub
-ssh_private_key_name: "julias_key"
+ssh_private_key_name: "juliaskey"
 ssh_private_key_path: "/home/sgtuser/{{ ssh_private_key_name }}"
 base_directory: "/home/{{ user_name }}/Final_assignment_cars"
 docker_compose_directory: "{{ base_directory }}/Docker"

@@ -1,13 +1,6 @@
 ---
-- name: Clone repositories using SSH
-  ansible.builtin.git:
-    repo: "{{ item.git_repo_url }}"
-    dest: "{{ item.git_clone_destination }}"
-    version: "{{ item.branch_name }}"
-  environment:
-    GIT_SSH_COMMAND: "ssh -i /home/{{ user_name }}/.ssh/{{ item.ssh_private_key_name }} -o IdentitiesOnly=yes -F /dev/null -o StrictHostKeyChecking=no"
-  loop:
-    - git_repo_url: "{{ git_repo_url }}"
-      git_clone_destination: "{{ git_clone_destination }}"
-      branch_name: "{{ branch_name }}"
-      ssh_private_key_name: "{{ ssh_private_key_name }}"
+- name: Clone repository using HTTPS
+  git:
+    repo: "https://github.com/Julijaand/Final_assignment_cars.git"
+    dest: "{{ git_clone_destination }}"
+    version: "{{ branch_name }}"

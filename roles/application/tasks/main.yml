@@ -1,41 +1,48 @@
 ---
-- name: Update DB_USER in environment file
-  ansible.builtin.lineinfile:
-    path: "{{ env_file_path }}"
-    regexp: '^DB_USER='
-    line: "DB_USER={{ mysql_db_user }}"
-
-- name: Update DB_PASSWORD in environment file
-  ansible.builtin.lineinfile:
-    path: "{{ env_file_path }}"
-    regexp: '^DB_PASSWORD='
-    line: "DB_PASSWORD={{ mysql_db_password }}"
-
-- name: Update DB_HOST in environment file
-  ansible.builtin.lineinfile:
-    path: "{{ env_file_path }}"
-    regexp: '^DB_HOST='
-    line: "DB_HOST={{ mysql_alias }}"
-
-- name: Update DB_NAME in environment file
-  ansible.builtin.lineinfile:
-    path: "{{ env_file_path }}"
-    regexp: '^DB_NAME='
-    line: "DB_NAME={{ mysql_db_name }}"
-
-- name: Generate Docker Compose file
-  ansible.builtin.template:
-    src: docker-compose.yml.j2
-    dest: "{{ docker_compose_directory }}/docker-compose.yml"
-
-- name: Generate app.py file
-  ansible.builtin.template:
-    src: app.py.j2
-    dest: "{{ python_app }}/app.py"
+#- name: Update DB_USER in environment file
+#  ansible.builtin.lineinfile:
+#    path: "{{ env_file_path }}"
+#    regexp: '^DB_USER='
+#    line: "DB_USER={{ mysql_db_user }}"
+#
+#- name: Update DB_PASSWORD in environment file
+#  ansible.builtin.lineinfile:
+#    path: "{{ env_file_path }}"
+#    regexp: '^DB_PASSWORD='
+#    line: "DB_PASSWORD={{ mysql_db_password }}"
+#
+#- name: Update DB_HOST in environment file
+#  ansible.builtin.lineinfile:
+#    path: "{{ env_file_path }}"
+#    regexp: '^DB_HOST='
+#    line: "DB_HOST={{ mysql_alias }}"
+#
+#- name: Update DB_NAME in environment file
+#  ansible.builtin.lineinfile:
+#    path: "{{ env_file_path }}"
+#    regexp: '^DB_NAME='
+#    line: "DB_NAME={{ mysql_db_name }}"
+#
+#- name: Generate Docker Compose file
+#  ansible.builtin.template:
+#    src: docker-compose.yml.j2
+#    dest: "{{ docker_compose_directory }}/docker-compose.yml"
+#
+#- name: Generate app.py file
+#  ansible.builtin.template:
+#    src: app.py.j2
+#    dest: "{{ python_app }}/app.py"
+#
+#- name: Run Docker Compose in a specific directory
+#  command: docker-compose up -d
+#  args:
+#    chdir: "{{ docker_compose_directory }}"
+#  become: true
+#  become_user: "{{ become_user_name }}"
 
 - name: Run Docker Compose in a specific directory
   command: docker-compose up -d
   args:
     chdir: "{{ docker_compose_directory }}"
   become: true
-  become_user: "{{ become_user_name }}"
+  become_user: root

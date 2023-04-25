@@ -1,6 +1,5 @@
 from Docker.python_app import db_connect as db
 
-
 def get_all_cars():
     car_list = []
     with db.crete_connection() as conn:

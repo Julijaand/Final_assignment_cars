@@ -2,9 +2,9 @@
 - hosts: all
   become: true
   roles:
-    - install
-    - user
-    - prepare_git
+#    - install
+#    - user
+#    - prepare_git
     - git
     - application
     - db
