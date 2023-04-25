@@ -7,10 +7,10 @@ base_directory: "/home/{{ user_name }}/Final_assignment_cars"
 docker_compose_directory: "{{ base_directory }}/Docker"
 become_user_name: root
 mysql_container_name: python_cars
-mysql_container_temp_path: /tmp/backup.sql
+mysql_container_temp_path: /Docker/car_db_dump.sql
 mysql_root_password: sgt2023
 mysql_db_name: car_db
-backup_file_path: "{{ docker_compose_directory }}/backup.sql"
+backup_file_path: "{{ docker_compose_directory }}/car_db_dump.sql"
 git_repo_url: git@github.com:Julijaand/Final_assignment_cars.git
 git_clone_destination: "{{ base_directory }}"
 docker_compose_version: '1.29.2'
