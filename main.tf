@@ -2,12 +2,12 @@ provider "aws" {
   region = var.region
 }
 
-resource "aws_key_pair" "julias_key" {
+resource "aws_key_pair" "group_four_key" {
   key_name   = var.key_name
   public_key = file(var.public_key_path)
 }
 
-resource "aws_security_group" "final_assignment_security_group" {
+resource "aws_security_group" "final_assignment_group_four_security_group" {
   name        = var.security_group_name
 
   ingress {
@@ -43,7 +43,7 @@ resource "aws_security_group" "final_assignment_security_group" {
 resource "aws_instance" "final_assignment_group_four" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  key_name      = aws_key_pair.julias_key.key_name
+  key_name      = aws_key_pair.group_four_key.key_name
   tags = {
     Name = "final_assignment_group_four"
   }
