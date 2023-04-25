@@ -11,7 +11,3 @@
       git_clone_destination: "{{ git_clone_destination }}"
       branch_name: "{{ branch_name }}"
       ssh_private_key_name: "{{ ssh_private_key_name }}"
-    - git_repo_url: "{{ git_repo_python_url }}"
-      git_clone_destination: "{{ python_app }}"
-      branch_name: main
-      ssh_private_key_name: "{{ python_private_key_name }}"
