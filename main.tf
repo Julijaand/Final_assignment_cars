@@ -7,7 +7,7 @@ resource "aws_key_pair" "mykeypair_test" {
   public_key = file(var.public_key_path)
 }
 
-resource "aws_security_group" "final_assignment_security_group" {
+resource "aws_security_group" "final_assignment_group_four_security_group" {
   name        = var.security_group_name
 
   ingress {
@@ -39,17 +39,17 @@ resource "aws_security_group" "final_assignment_security_group" {
   }
 }
 
-resource "aws_instance" "final_assignment" {
+resource "aws_instance" "final_assignment_group_four" {
   ami           = var.ami_id
   instance_type = var.instance_type
   key_name      = aws_key_pair.mykeypair_test.key_name
   tags = {
     Name = "final_assignment"
   }
-  vpc_security_group_ids = [aws_security_group.final_assignment_security_group.id]
+  vpc_security_group_ids = [aws_security_group.final_assignment_group_four_security_group.id]
 
   provisioner "local-exec" {
-    command = "sleep 60 && ansible-playbook -i '${aws_instance.final_assignment.public_ip},' -e ip_address=${aws_instance.final_assignment.public_ip} final_playbook.yml --user ${var.aws_instance_user_id} --private-key ${var.private_key_path} --vault-password-file vault_password.txt"
+    command = "sleep 60 && ansible-playbook -i '${aws_instance.final_assignment_group_four.public_ip},' -e ip_address=${aws_instance.final_assignment_group_four.public_ip} playbook.yml --user ${var.aws_instance_user_id} --private-key ${var.private_key_path} --vault-password-file vault_password.txt"
   }
 
 }
