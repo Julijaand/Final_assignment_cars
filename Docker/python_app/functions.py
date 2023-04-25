@@ -1,8 +1,8 @@
-from Docker.python_app import db_connect as db
+import db_connect as db
 
 def get_all_cars():
     car_list = []
-    with db.crete_connection() as conn:
+    with db.create_connection() as conn:
         with conn.cursor() as cursor:
             cursor.execute("SELECT brand, model, year, colour, price FROM cars")
             for car in cursor.fetchall():
