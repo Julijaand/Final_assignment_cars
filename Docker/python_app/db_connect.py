@@ -1,10 +1,10 @@
 import mysql.connector
-from mysql.connector import connect, Error
-from config import configValue
+from decouple import config
 
-def crete_connection():
-    try:
-        with connect(**configValue) as connection:
-            return mysql.connector.connect
-    except Error as e:
-        print(e)
+def create_connection():
+    return mysql.connector.connect(
+            host=config('DB_HOST'),
+            user=config('DB_USER'),
+            password=config('DB_PASSWORD'),
+            database=config('DB_NAME')
+    )
