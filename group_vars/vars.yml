@@ -21,3 +21,4 @@ mysql_alias: "mysql"
 branch_name: "julijas_branch"
 python_public_key: /home/sgtuser/python_key.pub 
 python_private_key_name: "python_key"
+python_ssh_private_key_path: "/home/sgtuser/{{ python_private_key_name }}"
